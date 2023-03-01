@@ -16,33 +16,37 @@ namespace OnlineRestaurantWebAPI.DataModels
         public string password { get; set; }
         public ICollection<OrderDetails> OrderDetails { get; set; }
         public ICollection<Payment> Payments { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
     }
 
-    public class Crew
+    public class Shop
     {
         [Key]
-        public int crew_ID { get; set; }
+        public int shop_ID { get; set; }
         public string name { get; set; }
         public int contact { get; set; }
         public string address { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public ICollection<OrderDetails> OrderDetails { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
     }
 
     public class OrderDetails
     {
         [Key]
         public int order_ID { get; set; }
-        public int crew_ID { get; set; }
+        public int shop_ID { get; set; }
         public int cust_ID { get; set; }
         public int food_ID { get; set; }
         public DateTime date { get; set; }
         public string status { get; set; }
-        public Crew Crew { get; set; }
+        public Shop Shop { get; set; }
         public Customer Customer { get; set; }
         public Food Food { get; set; }
-        public Payment Payments { get; set; }
+        public Delivery Delivery { get; set; }
+        public ICollection<Payment>  Payments { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
     }
 
     public class Payment
@@ -87,6 +91,7 @@ namespace OnlineRestaurantWebAPI.DataModels
         public int order_ID { get; set; }
         public DateTime date { get; set; }
         public OrderDetails OrderDetails { get; set; }
+        public ICollection<Payment> Payments { get; set; }
     }
 
     public class Transaction
@@ -95,11 +100,11 @@ namespace OnlineRestaurantWebAPI.DataModels
         public int trans_ID { get; set; }
         public DateTime trans_date { get; set; }
         public int cust_ID { get; set; }
-        public int crew_ID { get; set; }
+        public int shop_ID { get; set; }
         public int order_ID { get; set; }
         public DateTime report_date { get; set; }
         public Customer Customer { get; set; }
-        public Crew Crew { get; set; }
+        public Shop Shop { get; set; }
         public OrderDetails OrderDetails { get; set; }
     }
 }

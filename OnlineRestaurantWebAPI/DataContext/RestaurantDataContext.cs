@@ -7,7 +7,7 @@ namespace OnlineRestaurantWebAPI.DataContext
     public class RestaurantDataContext:DbContext
     {
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Crew> Crews { get; set; }
+        public DbSet<Shop> Shops { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Menu> Menus { get; set; }
@@ -26,11 +26,11 @@ namespace OnlineRestaurantWebAPI.DataContext
             modelBuilder.Entity<Customer>().HasKey(c => c.cust_ID);
             modelBuilder.Entity<Customer>().HasMany(c => c.OrderDetails).WithOne(od => od.Customer);
 
-            modelBuilder.Entity<Crew>().HasKey(c => c.crew_ID);
-            modelBuilder.Entity<Crew>().HasMany(c => c.OrderDetails).WithOne(od => od.Crew);
+            modelBuilder.Entity<Shop>().HasKey(s => s.shop_ID);
+            modelBuilder.Entity<Shop>().HasMany(s => s.OrderDetails).WithOne(od => od.Shop);
 
             modelBuilder.Entity<OrderDetails>().HasKey(od => od.order_ID);
-            modelBuilder.Entity<OrderDetails>().HasOne(od => od.Crew).WithMany(c => c.OrderDetails).HasForeignKey(od => od.crew_ID);
+            modelBuilder.Entity<OrderDetails>().HasOne(od => od.Shop).WithMany(s => s.OrderDetails).HasForeignKey(od => od.shop_ID);
             modelBuilder.Entity<OrderDetails>().HasOne(od => od.Customer).WithMany(c => c.OrderDetails).HasForeignKey(od => od.cust_ID);
             modelBuilder.Entity<OrderDetails>().HasOne(od => od.Food).WithMany(f => f.OrderDetails).HasForeignKey(od => od.food_ID);
 
@@ -49,7 +49,7 @@ namespace OnlineRestaurantWebAPI.DataContext
 
             modelBuilder.Entity<Transaction>().HasKey(t => t.trans_ID);
             modelBuilder.Entity<Transaction>().HasOne(t => t.Customer).WithMany(c => c.Transactions).HasForeignKey(t => t.cust_ID);
-            modelBuilder.Entity<Transaction>().HasOne(t => t.Crew).WithMany(c => c.Transactions).HasForeignKey(t => t.crew_ID);
+            modelBuilder.Entity<Transaction>().HasOne(t => t.Shop).WithMany(c => c.Transactions).HasForeignKey(t => t.shop_ID);
             modelBuilder.Entity<Transaction>().HasOne(t => t.OrderDetails).WithMany(od => od.Transactions).HasForeignKey(t => t.order_ID);
         }
     }
