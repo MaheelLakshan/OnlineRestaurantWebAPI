@@ -18,7 +18,7 @@ namespace OnlineRestaurantWebAPI.DataContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            
-            optionsBuilder.UseSqlServer(""Server=Maheel\\SQLEXPRESS;Database=OnlineRestaurant;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=Maheel\\SQLEXPRESS;Database=OnlineRestaurant;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
